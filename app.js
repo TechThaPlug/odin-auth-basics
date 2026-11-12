@@ -7,6 +7,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
+const pgSession = require("connect-pg-simple")(session);
 
 if (!process.env.DATABASE_URL || !process.env.SESSION_SECRET) {
   throw new Error(
@@ -37,6 +38,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   session({
+    store: new pgSession({ pool, createTableIfMissing: true }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
