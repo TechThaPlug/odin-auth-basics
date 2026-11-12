@@ -1,0 +1,32 @@
+<%- include("partials/header") %>
+
+<% if (currentUser) { %>
+  <h1>Welcome back, <%= currentUser.username %>!</h1>
+  <p><a href="/secret">Members-only page</a></p>
+
+  <form method="POST" action="/log-out">
+    <button type="submit">Log out</button>
+  </form>
+<% } else { %>
+  <h1>Please log in</h1>
+
+  <% if (messages.length > 0) { %>
+    <div class="errors" role="alert">
+      <p><%= messages[messages.length - 1] %></p>
+    </div>
+  <% } %>
+
+  <form action="/log-in" method="POST">
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" required autocomplete="username">
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" required autocomplete="current-password">
+
+    <button type="submit">Log in</button>
+  </form>
+
+  <p>No account yet? <a href="/sign-up">Sign up</a></p>
+<% } %>
+
+<%- include("partials/footer") %>

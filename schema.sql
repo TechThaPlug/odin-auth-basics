@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS users (
+  id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  username VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS users_username_unique
+  ON users (lower(username));
